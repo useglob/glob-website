@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "proto:gen": "npx protoc --ts_proto_out=./src/app/api/generated --ts_proto_opt=esModuleInterop=true,outputServices=grpc-js -I ./public public/api.proto",
+    "proto:gen": "mkdir -p src/app/api/generated && npx protoc --ts_proto_out=./src/app/api/generated --ts_proto_opt=esModuleInterop=true,outputServices=grpc-js -I ./public public/api.proto",
     "start": "next start",
     "lint": "next lint"
   },
