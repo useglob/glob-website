@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package api;
+
+option go_package = "internal/api;api";
+
+service GlobNode {
+  rpc Write (WriteRequest) returns (WriteResponse);
+  rpc Read (ReadRequest) returns (ReadResponse);
+  rpc ReadMany (ReadManyRequest) returns (ReadManyResponse);
+  rpc Metrics (MetricsRequest) returns (MetricsResponse);
+  rpc Health (HealthRequest) returns (HealthResponse);
+}
+
+message WriteRequest {
+  string app_id = 1;
+  string path = 2;
+  bytes data = 3;
+  bytes signature = 4;
+}
+message WriteResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message ReadRequest {
+  string app_id = 1;
+  string path = 2;
+}
+message ReadResponse {
+  bool success = 1;
+  string message = 2;
+  bytes data = 3;
+}
+
+message ReadManyRequest {
+  string app_id = 1;
+  string path = 2;
+}
+message ReadManyResponse {
+  bool success = 1;
+  string message = 2;
+  map<string, bytes> data = 3;
+}
+
+message MetricsRequest {}
+message MetricsResponse {
+  string stage_of_glob = 1;
+
+  uint32 total_flush_count = 2;
+  uint32 total_blobs = 3;
+  uint32 total_writes = 4;
+  uint32 total_blob_size = 5;
+
+  double node_reward = 6;
+
+  string last_flush_time = 7;
+  string last_blob_time = 8;
+}
+
+message HealthRequest {}
+message HealthResponse {
+  string status = 1;
+}
